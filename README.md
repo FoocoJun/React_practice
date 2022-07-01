@@ -8,6 +8,26 @@
 
 </aside>
 <details><summary> 느슨한 타입(loosely typed)의 동적(dynamic) 언어</summary>
+### 타입
+자료형을 의미하는 타입은 int, short, float, bool 등이 있다.
+bool을 이용해 참거짓을 나타내는 자료를 만들고
+float을 이용해 실수를 나타내는 자료를 만들 수 있다.
+<br>
+하지만 이것은 정적 언어(C,C++,C#,JAVA 등)에 해당되는 사항이다.
+깐깐하게 체크하며 맞지않는 자료가 들어가면 화를 낸다.
+<br>
+JavaScript는 느슨한 타입(loosely typed)의 동적(dynamic) 언어이다.
+한마디로 변수에 융통성이 있다. 변수의 자료형을 미리 선언하지 않아도 된다.
+기본적으로 JavaScript의 변수는 특정 타입과 연결되지 않으며,
+모든 타입의 값으로 할당 또는 재할당이 가능하다.
+
+```js
+let num = 5     // num의 자료형은 숫자
+foo = 'five'    // num의 자료형이 문자로 자연스럽게 재할당 됨
+foo = true      // num의 자료형이 불리언으로 재할당 됨
+
+```
+
 
 </details>
 <details><summary> JavaScript 형변환</summary>
@@ -94,3 +114,21 @@
     console.log(b);
     ```
     
+
+```js
+function makeAdder(x) {
+    var y = 1;
+    
+    return function(z) {
+    y = 100;
+    return x + y + z;
+    };
+}
+
+var add5 = makeAdder(5);
+var add10 = makeAdder(10);
+//클로저에 x와 y의 환경이 저장됨
+
+console.log(add5(2)); // 107 (x:5 + y:100 + z:2)
+console.log(add10(2)); // 112 (x:10 + y:100 + z:2)
+//함수 실행 시 클로저에 저장된 x, y값에 접근하여 값을 계산
