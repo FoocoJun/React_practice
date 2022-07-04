@@ -7,6 +7,8 @@ const BucketList = (props) => {
     console.log(props);
     const my_lists = props.list;
 
+    
+
     return (
         <ListStyle>
             {my_lists.map((list, index) => {
