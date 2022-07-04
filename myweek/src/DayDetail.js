@@ -6,6 +6,7 @@ const DayDetail = (props) => {
     const navigate = useNavigate();
     const {days} = useParams();
     const [rate, setRate] = React.useState(0);
+    
     const voteToday = () => {
         props.points[props.days.indexOf(days)].fill(0).fill(1,0,rate)    //날짜의 인덱스를 찾아 점수를 불러오기.
         console.log(props.points[props.days.indexOf(days)])
