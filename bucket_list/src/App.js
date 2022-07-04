@@ -1,64 +1,74 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
+import styled from "styled-components";
+import {Route, Routes} from "react-router-dom";
+
 // BucketList 컴포넌트를 import 해옵니다. import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
-import BucketList from './BucketList';
-import styled from 'styled-components'
+import BucketList from "./BucketList";
+import Detail from "./Detail";
 
-// 클래스형 컴포넌트는 이렇게 생겼습니다!
-class App extends React.Component {
+function App() {
 
-    constructor(props) {
-        super(props);
-        // App 컴포넌트의 state를 정의해줍니다.
-        this.state = {
-            list: ['영화관 가기', '매일 책읽기', '수영 배우기']
-        };
-        this.text = React.createRef()
+    const [list,
+        setList] = React.useState(["영화관 가기", "매일 책읽기", "수영 배우기"]);
+    const text = React.useRef(null);
+
+    const addBucketList = () => {
+        // 스프레드 문법! 기억하고 계신가요? :) 원본 배열 list에 새로운 요소를 추가해주었습니다.
+        setList([
+            ...list,
+            text.current.value
+        ]);
     }
 
-    // 랜더 함수 안에 리액트 엘리먼트를 넣어줍니다!
-    render() {
-        // this 키워드를 통해 state에 접근할 수 있어요.
-        console.log(this.state);
-
-        return (
-            <DivApp>
-                <MyStyled>
-                    <h1>내 버킷리스트</h1>
-                    <hr/> {/* 컴포넌트를 넣어줍니다. */}
-                    {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
-                    <BucketList list={this.state.list}/>
-                </MyStyled>
-                <div>
-                  <input type="text" onChange={()=>console.log(this.text.current.value)} ref={this.text}/>
-                </div>
-            </DivApp>
-        );
-    }
+    console.log(list);
+    return (
+        <div className="App">
+            <Container>
+                <Title>내 버킷리스트</Title>
+                <Line/> {/* 컴포넌트를 넣어줍니다. */}
+                {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
+                <Routes>
+                    <Route path="/" element={< BucketList list={list} />}/>
+                    <Route path="/detail" element={< Detail />}/>
+                </Routes>
+            </Container>
+            {/* 인풋박스와 추가하기 버튼을 넣어줬어요. */}
+            <Input>
+                <input type="text" ref={text}/>
+                <button onClick={addBucketList}>추가하기</button>
+            </Input>
+        </div>
+    );
 }
-const DivApp = styled.div `
-    background-color: #eee;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-`
 
-const MyStyled = styled.div `
-    background-color: #fff;
-    width: 50vw;
-    max-width: 350px;
-    margin: auto;
-    height: 80vh;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    h1 {
-      color: slateblue;
-      text-align: center;
-    }
-    hr {
-      margin: 16px 0;
-    }
-`
+const Input = styled.div `
+max-width: 350px;
+min-height: 10vh;
+background-color: #fff;
+padding: 16px;
+margin: 20px auto;
+border-radius: 5px;
+border: 1px solid #ddd;
+`;
+
+const Container = styled.div `
+max-width: 350px;
+min-height: 60vh;
+background-color: #fff;
+padding: 16px;
+margin: 20px auto;
+border-radius: 5px;
+border: 1px solid #ddd;
+`;
+
+const Title = styled.h1 `
+color: slateblue;
+text-align: center;
+`;
+
+const Line = styled.hr `
+margin: 16px 0px;
+border: 1px dotted #ddd;
+`;
 
 export default App;
