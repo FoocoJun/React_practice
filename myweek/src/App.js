@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
 import React from "react";
