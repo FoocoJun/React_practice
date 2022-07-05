@@ -11,7 +11,6 @@ const DayDetail = (props) => {
   const setPoints = props.setPoints; //App state points 바꾸는 함수
 
   const voteToday = () => {
-    //props.points[props.days.indexOf(days)].fill(0).fill(1,0,rate)
     votedPoint[props.days.indexOf(days)].fill(0).fill(1, 0, rate); //days의 인덱스를 요일표에서 찾아 점수를 업데이트하기.
     setPoints(votedPoint); //App에 적용하기
 

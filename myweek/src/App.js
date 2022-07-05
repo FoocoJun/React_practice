@@ -19,23 +19,22 @@ function App() {
     "일",
   ]);
 
-  const [points, setPoints] = React.useState([
-    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6)),
-    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6)),
-    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6)),
-    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6)),
-    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6)),
-    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6)),
-    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6)),
-  ]);
-  //랜덤 확인 console.log(points)
+  const randomPoints = Array.from({ length: 7 }, () =>
+    Array(5).fill(0).fill(1, 0, getRandomInt(1, 6))
+  );
+  //test 미리 안만들고 useState 안에서 반복하면 참조하는 자녀 컴포넌트에서 undefined 뜸
+
+  const [points, setPoints] = React.useState(randomPoints);
   console.log(points);
 
   return (
     <div className="App">
       <Container>
         <Routes>
-          <Route path="/" element={<Days days={days} points={points} />} />
+          <Route
+            path="/"
+            element={<Days days={days} points={points} setPoints={setPoints} />}
+          />
           <Route
             path="/detail/:days"
             element={

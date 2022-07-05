@@ -6,9 +6,13 @@ import HowGood from "./HowGood";
 const Days = (props) => {
   const my_days = props.days;
   const day_points = props.points;
+  const setPoints = props.setPoints;
   const avg_points = (day_points.flat().reduce((a, b) => a + b) / 7).toFixed(1);
 
-  const reset = () => window.location.replace("/");
+  const reset = () => {
+    const reseted = Array.from({ length: 7 }, () => Array(5).fill(0));
+    setPoints(reseted);
+  };
 
   return (
     <div>
