@@ -6,17 +6,7 @@ import Days from "./Days";
 import DayDetail from "./DayDetail";
 
 function App() {
-  const vote = React.useRef(null);
-
-  const [days, setDays] = React.useState([
-    "월",
-    "화",
-    "수",
-    "목",
-    "금",
-    "토",
-    "일",
-  ]);
+  const days = ["월", "화", "수", "목", "금", "토", "일"];
 
   const randomPoints = Array.from({ length: 7 }, () =>
     Array(5).fill(0).fill(1, 0, getRandomInt(1, 6))
@@ -54,11 +44,6 @@ const Container = styled.div`
   margin: 20px auto;
   border-radius: 5px;
   border: 1px solid #ddd;
-`;
-
-const Line = styled.hr`
-  margin: 16px 0px;
-  border: 1px dotted #ddd;
 `;
 
 //정수 난수 생성기

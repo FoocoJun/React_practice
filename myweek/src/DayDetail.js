@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -54,7 +54,9 @@ const DayDetail = (props) => {
         })}
       </CheckWrap>
       <VoteWrap>
-        <button onClick={voteToday}>평점 남기기</button>
+        <button onClick={voteToday}>
+          평점 남기기
+        </button>
       </VoteWrap>
     </div>
   );

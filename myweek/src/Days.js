@@ -38,7 +38,7 @@ const Days = (props) => {
       <AvgWrap>
         <h2>평균 평점</h2>
         <h2>{avg_points}</h2>
-        <button onClick={reset}>Reset</button>
+        <button onClick={reset} >Reset</button>
       </AvgWrap>
     </div>
   );
