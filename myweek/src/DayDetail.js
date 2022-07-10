@@ -54,9 +54,7 @@ const DayDetail = (props) => {
         })}
       </CheckWrap>
       <VoteWrap>
-        <button onClick={voteToday}>
-          평점 남기기
-        </button>
+        <button onClick={voteToday}>평점 남기기</button>
       </VoteWrap>
     </div>
   );
