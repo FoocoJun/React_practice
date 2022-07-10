@@ -9,10 +9,21 @@ function Contents({ dict }) {
     <>
       <Col xs={12} md={6} lg={4}>
         <Content>
+            {/* 상자가 망가지는 것을 방지하기 위해 글자수로 자름 데이터는 유효 */}
           <div>
-            <h4>{dict.word}</h4>
-            <h5>{dict.def}</h5>
-            <h6>{dict.ex}</h6>
+            <h4>
+              {dict.word.length > 15
+                ? dict.word.substring(0, 15) + "..."
+                : dict.word}
+            </h4>
+            <h5>
+              {dict.def.length > 30
+                ? dict.def.substring(0, 30) + "..."
+                : dict.def}
+            </h5>
+            <h6>
+              {dict.ex.length > 30 ? dict.ex.substring(0, 30) + "..." : dict.ex}
+            </h6>
           </div>
         </Content>
       </Col>
