@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="App">
       <Header>
-        <h2>F-16 MPM BREVITY WORDS</h2>
+        <h2>AirCombat BREVITY WORDS</h2>
         <hr />
       </Header>
       <Routes>
