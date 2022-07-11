@@ -12,8 +12,8 @@ function Contents({ dict }) {
 
   //Event
   const hoverShow = () => {
-    console.log(window.innerWidth);
     if (window.innerWidth > 767) {
+      //현재 브라우저의 넓이가 모바일보다 클 때
       box.current.style.position = "absolute";
       box.current.style.minWidth = "420px";
       box.current.style.width = "20%";
@@ -25,9 +25,11 @@ function Contents({ dict }) {
   };
 
   const hoverOut = () => {
-    box.current.style.position = "static";
-    box.current.style.minWidth = "0px";
-    box.current.style.width = "95%";
+    if (window.innerWidth > 767) {
+      box.current.style.position = "static";
+      box.current.style.minWidth = "0px";
+      box.current.style.width = "95%";
+    }
     word.current.innerText =
       dict.word.length > 15 ? dict.word.substring(0, 15) + "..." : dict.word;
     def.current.innerText =
@@ -86,7 +88,7 @@ const Content = styled.div`
   border-radius: 5%;
   margin: 5px auto;
 
-  word-break: normal;
+  word-break: normal; //단어단위로 줄바꿈
 
   &:hover {
     //&은 자기자신을 지칭한다.
