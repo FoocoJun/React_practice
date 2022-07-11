@@ -10,9 +10,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //Components
 import ContentsBox from "./ContentsBox"; //사전 정리하는 박스
 import Upload from "./Upload"; //사전 추가하는 창
+import { Spinner } from "react-bootstrap";
 
 function App() {
   const dispatch = useDispatch();
+  const is_loaded = useSelector((state) => state.dict.is_loaded);
 
   React.useEffect(() => {
     dispatch(loadDictFB());
@@ -24,6 +26,20 @@ function App() {
         <h2>AirCombat BREVITY WORDS</h2>
         <hr />
       </Header>
+      {!is_loaded && (
+        <SpinnerCont>
+          <Spinner
+            animation="border"
+            variant="info"
+            style={{
+              display: "block",
+              position: "fixed",
+              top: "50%",
+              right: "50%",
+            }}
+          />
+        </SpinnerCont>
+      )}
       <Routes>
         <Route path="/" element={<ContentsBox />} />
         <Route path="/upload" element={<Upload />} />
@@ -44,6 +60,13 @@ const Header = styled.div`
     margin: 20px auto;
     width: 80%;
   }
+`;
+
+const SpinnerCont = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 `;
 
 export default App;

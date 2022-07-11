@@ -17,6 +17,7 @@ const UPDATE = "dict/UPDATE";
 const REMOVE = "dict/REMOVE";
 
 const initialState = {
+  is_loaded: false,     //LOAD 완료 전 false
   dict: [],
 };
 
@@ -71,7 +72,7 @@ export default function reducer(state = initialState, action = {}) {
   //dispatch는 action함수에 접근하여 리턴값으로 reducer의 2번째 매개변수(action)를 제공
   switch (action.type) {
     case "dict/LOAD": {
-      return { dict: action.mpm_dict };
+      return { dict: action.mpm_dict, is_loaded: true };  //LOAD가 완료되면 true 반환
     }
     case "dict/CREATE": {
       const new_dict_list = [...state.dict, action.dict];

@@ -12,7 +12,9 @@ function Contents({ dict }) {
 
   //Event
   const hoverShow = () => {
-    box.current.style.height = "fit-content";
+    box.current.style.position = "absolute";
+    box.current.style.minWidth = "415px";
+    box.current.style.width="25%";
 
     word.current.innerText = dict.word;
     def.current.innerText = dict.def;
@@ -20,6 +22,9 @@ function Contents({ dict }) {
   };
 
   const hoverOut = () => {
+    box.current.style.position = "static";
+    box.current.style.minWidth = "0px";
+    box.current.style.width = "95%";
     word.current.innerText =
       dict.word.length > 15 ? dict.word.substring(0, 15) + "..." : dict.word;
     def.current.innerText =
@@ -71,10 +76,14 @@ function Contents({ dict }) {
 }
 
 const Content = styled.div`
+  height : fit-content;
+  width: 95%;
+
   background-color: skyblue;
   border-radius: 5%;
   margin: 5px auto;
-  width: 95%;
+  
+  word-break: normal;
 
   &:hover {
     //&은 자기자신을 지칭한다.
