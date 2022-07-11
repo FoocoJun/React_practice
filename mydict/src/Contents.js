@@ -3,8 +3,6 @@ import styled from "styled-components";
 
 //Bootstrap
 import { Col } from "react-bootstrap";
-import { text } from "@fortawesome/fontawesome-svg-core";
-import { async } from "@firebase/util";
 
 function Contents({ dict }) {
   var box = React.useRef(null);
@@ -31,8 +29,8 @@ function Contents({ dict }) {
   };
 
   React.useEffect(() => {
-    word.current.addEventListener("mouseover", hoverShow);
-    word.current.addEventListener("mouseout", hoverOut);
+    box.current.addEventListener("mouseover", hoverShow);
+    box.current.addEventListener("mouseout", hoverOut);
 
     return () => {
       // word.current.removeEventListener("mouseover", hoverShow);
@@ -58,7 +56,6 @@ function Contents({ dict }) {
               ? dict.word.substring(0, 20) + "..."
               : dict.word}
           </h4>
-          <Toolbar>d</Toolbar>
           <h5 ref={def}>
             {dict.def.length > 30
               ? dict.def.substring(0, 30) + "..."
