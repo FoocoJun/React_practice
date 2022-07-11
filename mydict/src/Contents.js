@@ -12,9 +12,12 @@ function Contents({ dict }) {
 
   //Event
   const hoverShow = () => {
-    box.current.style.position = "absolute";
-    box.current.style.minWidth = "415px";
-    box.current.style.width="25%";
+    console.log(window.innerWidth);
+    if (window.innerWidth > 767) {
+      box.current.style.position = "absolute";
+      box.current.style.minWidth = "420px";
+      box.current.style.width = "20%";
+    }
 
     word.current.innerText = dict.word;
     def.current.innerText = dict.def;
@@ -76,13 +79,13 @@ function Contents({ dict }) {
 }
 
 const Content = styled.div`
-  height : fit-content;
+  height: fit-content;
   width: 95%;
 
   background-color: skyblue;
   border-radius: 5%;
   margin: 5px auto;
-  
+
   word-break: normal;
 
   &:hover {
@@ -94,6 +97,9 @@ const Content = styled.div`
     margin: auto;
     padding: 1vw;
     width: 98%;
+  }
+  h4 {
+    font-weight: bolder;
   }
   h6 {
     color: blue;
