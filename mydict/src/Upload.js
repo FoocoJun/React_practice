@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Home from "./Home";
 
 import { useDispatch, useSelector } from "react-redux";
-import { createDict } from "./redux/modules/dict";
+import { createDictFB } from "./redux/modules/dict";
 
 function Upload() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function Upload() {
       num: count,
     };
 
-    dispatch(createDict(tmp_dict));
+    dispatch(createDictFB(tmp_dict));
     navigate("/");
     alert("정상적으로 등록되었습니다.");
     e.preventDefault();

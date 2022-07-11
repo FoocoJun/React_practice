@@ -18,7 +18,7 @@ import Contents from "./Contents"; //사전 요소
 
 function ContentsBox() {
   const dict = useSelector((state) => state.dict.dict);
-  console.log(dict);
+  console.log(dict)
 
   return (
     <>

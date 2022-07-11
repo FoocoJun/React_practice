@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loadDictFB } from "./redux/modules/dict";
 
 //Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,6 +12,12 @@ import ContentsBox from "./ContentsBox"; //사전 정리하는 박스
 import Upload from "./Upload"; //사전 추가하는 창
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(loadDictFB());
+  }, []);
+
   return (
     <div className="App">
       <Header>

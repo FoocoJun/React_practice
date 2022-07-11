@@ -1,8 +1,16 @@
-import { legacy_createStore as createStore, combineReducers } from "redux";
+import {
+  legacy_createStore as createStore,
+  combineReducers,
+  applyMiddleware,
+} from "redux";
+import thunk from "redux-thunk";
+
 import dict from "./modules/dict";
 
+const middlewares = [thunk];
+const enhancer = applyMiddleware(...middlewares);
 const rootReducer = combineReducers({ dict });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, enhancer);
 
 export default store;

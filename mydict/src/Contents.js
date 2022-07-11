@@ -3,31 +3,73 @@ import styled from "styled-components";
 
 //Bootstrap
 import { Col } from "react-bootstrap";
+import { text } from "@fortawesome/fontawesome-svg-core";
+import { async } from "@firebase/util";
 
 function Contents({ dict }) {
+  var box = React.useRef(null);
+  var word = React.useRef(dict.word);
+  var def = React.useRef(dict.def);
+  var ex = React.useRef(dict.ex);
+
+  //Event
+  const hoverShow = () => {
+    box.current.style.height = "fit-content";
+
+    word.current.innerText = dict.word;
+    def.current.innerText = dict.def;
+    ex.current.innerText = dict.ex;
+  };
+
+  const hoverOut = () => {
+    word.current.innerText =
+      dict.word.length > 15 ? dict.word.substring(0, 15) + "..." : dict.word;
+    def.current.innerText =
+      dict.def.length > 20 ? dict.def.substring(0, 20) + "..." : dict.def;
+    ex.current.innerText =
+      dict.ex.length > 30 ? dict.ex.substring(0, 30) + "..." : dict.ex;
+  };
+
+  React.useEffect(() => {
+    word.current.addEventListener("mouseover", hoverShow);
+    word.current.addEventListener("mouseout", hoverOut);
+
+    return () => {
+      // word.current.removeEventListener("mouseover", hoverShow);
+      // word.current.removeEventListener("mouseout", hoverOut);
+      //
+      //0.
+      //위 코드는 unmount 이후 removeEventListener이 word에 대해 호출하고 있음.
+      //이에 word는 undefined가 되어버리고,
+      //Cannot read properties of null (reading 'removeEventListener') 라는 에러가 나옴.
+      //
+      //IE8 이상 및 Chrome 은 removeEventListener이 없어도 event가 중첩되는 현상 보이지 않음.
+      //따라서 제거함.
+    };
+  }, []);
+
   return (
-    <>
-      <Col xs={12} md={6} lg={4}>
-        <Content>
-            {/* 상자가 망가지는 것을 방지하기 위해 글자수로 자름 데이터는 유효 */}
-          <div>
-            <h4>
-              {dict.word.length > 15
-                ? dict.word.substring(0, 15) + "..."
-                : dict.word}
-            </h4>
-            <h5>
-              {dict.def.length > 30
-                ? dict.def.substring(0, 30) + "..."
-                : dict.def}
-            </h5>
-            <h6>
-              {dict.ex.length > 30 ? dict.ex.substring(0, 30) + "..." : dict.ex}
-            </h6>
-          </div>
-        </Content>
-      </Col>
-    </>
+    <Col xs={12} md={6} lg={4}>
+      <Content ref={box}>
+        {/* 상자가 망가지는 것을 방지하기 위해 글자수로 자름- 데이터는 유효 */}
+        <div>
+          <h4 ref={word}>
+            {dict.word.length > 20
+              ? dict.word.substring(0, 20) + "..."
+              : dict.word}
+          </h4>
+          <Toolbar>d</Toolbar>
+          <h5 ref={def}>
+            {dict.def.length > 30
+              ? dict.def.substring(0, 30) + "..."
+              : dict.def}
+          </h5>
+          <h6 ref={ex}>
+            {dict.ex.length > 30 ? dict.ex.substring(0, 30) + "..." : dict.ex}
+          </h6>
+        </div>
+      </Content>
+    </Col>
   );
 }
 
@@ -50,6 +92,11 @@ const Content = styled.div`
   h6 {
     color: blue;
   }
+`;
+
+const Toolbar = styled.div`
+  display: inline;
+  width: fit-content;
 `;
 
 export default Contents;
