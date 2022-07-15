@@ -16,7 +16,6 @@ function Upload() {
   const input_def = React.useRef(null);
   const input_ex = React.useRef(null);
   const count = useSelector((state) => state.dict.dict.length); //App.js에서 정의한 store 중 dict라는 모듈에서 정의한 dict값의 길이
-  console.log(count);
 
   const addWord = (e) => {
     let tmp_dict = {

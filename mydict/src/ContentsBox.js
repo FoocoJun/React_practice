@@ -25,7 +25,7 @@ function ContentsBox() {
       <Container>
         <Row>
           {dict.map((val, idx) => {
-            return <Contents key={"Contents" + idx} dict={val} />;
+            return <Contents key={"Contents"+idx} dict={val} />;
           })}
         </Row>
       </Container>

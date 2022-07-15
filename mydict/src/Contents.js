@@ -4,7 +4,7 @@ import styled from "styled-components";
 //Bootstrap
 import { Col } from "react-bootstrap";
 
-function Contents({ dict }) {
+function Contents({ idx, dict }) {
   var box = React.useRef(null);
   var word = React.useRef(dict.word);
   var def = React.useRef(dict.def);
