@@ -15,14 +15,13 @@ function HomeBtn() {
           textDecoration: "none",
         }}
       >
-        <FontAwesomeIcon icon={faHouseChimney} size={"1x"} color={"skyblue"} />
+        <FontAwesomeIcon icon={faHouseChimney} size={"1x"} color={"#7D9D9C"} />
       </Link>
     </ToHome>
   );
 }
 
 const ToHome = styled.div`
-  background-color: white;
   border-radius: 100%;
 
 `;
