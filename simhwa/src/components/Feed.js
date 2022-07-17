@@ -1,24 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
+//bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
-import Stack from "react-bootstrap/Stack";
 
-const Feed = ({card}) => {
-  let user = {
-    name: "Hajun",
-    pic: "https://scontent-gmp1-1.xx.fbcdn.net/v/t1.6435-9/33348141_2029080354019391_8693798106786955264_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=ZqAAuqEoHEcAX8oicAG&_nc_oc=AQk0omR4N2AcSjVCXiPFh6p1lMLv24xoGErgZ5IrEWh0xF_wJ_ar7O-cN6Fvv0SI5I8&tn=80rR6QnwQZXm_AhZ&_nc_ht=scontent-gmp1-1.xx&oh=00_AT9LHQO7sluY6Fhb9V4dB0PpXAHE7H92Ph29SrprZKEcbw&oe=62F7DB40",
-  };
+//Components
+import FeedLayout0 from "./FeedLayout0";
+import FeedLayout1 from "./FeedLayout1";
+import FeedLayout2 from "./FeedLayout2";
 
-  
-
+const Feed = ({ card }) => {
+  // if (card.layout == 0) {
   return (
     <Container
       style={{
-        width: "80%",
         border: "dotted #7D9D9C .3rem",
         borderRadius: "20px",
         margin: "3% auto",
@@ -27,46 +24,37 @@ const Feed = ({card}) => {
       <Row
         className="justify-content-md-center"
         style={{
-          margin: "3% auto",
+          margin: "1.5% auto 3%",
         }}
       >
+        {/* 유저 정보와 게시글 작성 시간 */}
         <div style={{ display: "flex", alignItems: "center", margin: "1%" }}>
-          <Image src={user.pic} roundedCircle width={32} />
-          <UserName>{user.name}</UserName>
-          <small style={{}}> {card.date}</small>
+          <Image src={card.writerPic} roundedCircle width={50} height={50} />
+          <UserName>{card.writer}</UserName>
+          <small> {card.date}</small>
         </div>
-        <Col md={6}>
-          <Image src={card.img} style={{ borderRadius: "20px" }} fluid />
-        </Col>
-        <Col md={6}>
-          <Stack gap={3}>
-            <PostWhere>{card.loc}</PostWhere>
-            <PostStory>
-              {card.story.length > 50
-                ? card.story.substring(0, 50) + "..."
-                : card.story}
-            </PostStory>
-          </Stack>
-        </Col>
+        {
+          //layout 0인 경우 사진 좌측 글 우측
+          //layout 1인 경우 사진 우측 글 좌측
+          //layout 2인 경우 사진 하단 글 상단
+          card.layout == 0 ? (
+            <FeedLayout0 card={card} />
+          ) : card.layout == 1 ? (
+            <FeedLayout1 card={card} />
+          ) : (
+            <FeedLayout2 card={card} />
+          )
+        }
       </Row>
     </Container>
   );
 };
 
-const UserName = styled.h6`
+const UserName = styled.h4`
   display: inline;
   font-weight: bolder;
   margin: 0 5px;
 `;
 
-const PostWhere = styled.h3`
-  font-weight: bolder;
-  text-align: left;
-`;
-
-const PostStory = styled.h6`
-  line-height: 1.2;
-  text-align: left;
-`;
 
 export default Feed;

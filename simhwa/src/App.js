@@ -3,6 +3,7 @@ import "./App.css";
 import React from "react";
 import styled from "styled-components";
 import { Route, Routes } from "react-router-dom";
+
 //Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -20,11 +21,8 @@ function App() {
 
       <section
         style={{
-          // width: window.innerWidth<787 ? "70%" : "100%",
-          height: "4500px",
           margin: "0 auto",
           paddingTop: "40px",
-          backgroundColor: "#E4DCCF",
         }}
       >
         <Routes>
