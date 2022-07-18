@@ -4,7 +4,14 @@ import styled from "styled-components";
 
 import { Nav } from "react-bootstrap";
 
-const LogOutBtn = ({setIsLogOut}) => {
+import { auth } from "../../firebase";
+import { signOut } from "firebase/auth";
+
+const LogOutBtn = () => {
+  const logout = () => {
+    signOut(auth).then(() => {});
+  };
+
   return (
     <Nav.Item
       as={Link}
@@ -12,10 +19,8 @@ const LogOutBtn = ({setIsLogOut}) => {
       style={{
         textDecoration: "none",
       }}
-      //로그인 구현 전 예시
-      onClick={()=>{setIsLogOut(true)}}
     >
-      <LinkBtn>로그아웃</LinkBtn>
+      <LinkBtn onClick={logout}>로그아웃</LinkBtn>
     </Nav.Item>
   );
 };

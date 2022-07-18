@@ -5,12 +5,11 @@ import styled from "styled-components";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 import HomeBtn from "./btns/HomeBtn";
-import SignUpBtn from "./btns/SignInUpBtn";
+import SignUpBtn from "./btns/SignUpBtn";
 import SignInBtn from "./btns/SignInBtn";
 import LogOutBtn from "./btns/LogOutBtn";
 
-const Header = () => {
-  const [isLogOut, setIsLogOut] = React.useState(true);
+const Header = ({ isLogin }) => {
   return (
     <Navbar style={{ background: "#F0EBE3" }} expand="lg" sticky="top">
       <Container>
@@ -19,16 +18,12 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-end flex-grow-1 pe-3">
-            {isLogOut && (
+            {!isLogin && (
               <SignUpBtn />
-              //로그인이 되어있으면 회원가입이 필요없음.
+              //로그인이 안되어있으면 회원가입 버튼 생성
             )}
 
-            {isLogOut ? (
-              <SignInBtn setIsLogOut={setIsLogOut} />
-            ) : (
-              <LogOutBtn setIsLogOut={setIsLogOut} />
-            )}
+            {isLogin ? <LogOutBtn /> : <SignInBtn />}
 
             <Nav.Item
               as={Link}

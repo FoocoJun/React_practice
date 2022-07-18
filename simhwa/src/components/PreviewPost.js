@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import styled from "styled-components";
 
 //bootstrap
@@ -24,7 +24,6 @@ const PreviewPost = (props) => {
     story: props.story,
   };
 
-  console.log(card);
   return (
     <>
       <Container
@@ -44,7 +43,7 @@ const PreviewPost = (props) => {
           <div style={{ display: "flex", alignItems: "center", margin: "1%" }}>
             <Image src={card.writerPic} roundedCircle width={50} height={50} />
             <UserName>{card.writer}</UserName>
-            <small> {card.date}</small>
+            <small> {card.date.split('GMT')[0]}</small>
           </div>
           {
             //layout 0인 경우 사진 좌측 글 우측

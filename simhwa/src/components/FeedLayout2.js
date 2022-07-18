@@ -12,8 +12,8 @@ const FeedLayout2 = ({card}) => {
         <Stack gap={3}>
           <PostWhere style={{ textAlign: "center" }}>{card.loc}</PostWhere>
           <PostStory style={{ textAlign: "center" }}>
-            {card.story.length > 50
-              ? card.story.substring(0, 50) + "..."
+            {card.story.length > 70
+              ? card.story.substring(0, 70) + "..."
               : card.story}
           </PostStory>
         </Stack>
@@ -43,7 +43,7 @@ const PostWhere = styled.h3`
   margin-top: 3%;
 `;
 
-const PostStory = styled.h6`
+const PostStory = styled.h5`
   line-height: 1.2;
   text-align: left;
 `;

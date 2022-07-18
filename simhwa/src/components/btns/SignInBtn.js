@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { Nav } from "react-bootstrap";
 
-const SignInBtn = ({setIsLogOut}) => {
+const SignInBtn = () => {
   return (
     <Nav.Item
       as={Link}
@@ -12,8 +12,6 @@ const SignInBtn = ({setIsLogOut}) => {
       style={{
         textDecoration: "none",
       }}
-      //로그인 구현 전 예시
-      onClick={()=>{setIsLogOut(false)}}
     >
       <LinkBtn>로그인</LinkBtn>
     </Nav.Item>

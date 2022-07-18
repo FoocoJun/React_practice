@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+
 //firebase 앱 실행하기
 import { initializeApp } from "firebase/app";
 
@@ -7,6 +8,9 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 //파이어 스토리지 (대용량 데이터베이스)
 import { getStorage } from "firebase/storage";
+//파이어 얻흐 (인증정보 서비스)
+import { getAuth } from "firebase/auth";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,11 +32,11 @@ const firebaseConfig = {
 //파이어베이스 시작해서 프로젝트 app 정보 받아오기
 const app = initializeApp(firebaseConfig);
 
-// firebase의 firestore 인스턴스를 변수에 저장
 //app 프로젝트의 파이어베이스 가져오기
 const db = getFirestore(app);
 //app 프로젝트의 스토리지 가져오기
 const storage = getStorage(app);
+//app 프로젝트의 인증정보 가져오기
+const auth = getAuth();
 
-// 필요한 곳에서 사용할 수 있도록 내보내기
-export { db, storage };
+export { db, storage, auth };
