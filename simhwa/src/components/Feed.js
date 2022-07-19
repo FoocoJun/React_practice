@@ -19,7 +19,7 @@ const Feed = ({ card }) => {
   const [hover, setHover] = React.useState(false);
 
   const toDetailPageByClickCard = () => {
-    navigate("/detail/" + card.id);
+    navigate("/detail/" + card.id, { state: { card: card } });
   };
 
   React.useEffect(() => {
@@ -38,7 +38,7 @@ const Feed = ({ card }) => {
         border: "dotted #7D9D9C .3rem",
         borderRadius: "20px",
         margin: "3% auto",
-        boxShadow: hover ? "0px 0px 5px grey": "none",
+        boxShadow: hover ? "0px 0px 5px grey" : "none",
       }}
     >
       <Row

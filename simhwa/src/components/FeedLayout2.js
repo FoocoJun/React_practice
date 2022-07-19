@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Stack from "react-bootstrap/Stack";
 
-const FeedLayout2 = ({card}) => {
+const FeedLayout2 = ({ card }) => {
   return (
     <>
       <Col md={12}>
@@ -44,6 +44,7 @@ const PostWhere = styled.h3`
 `;
 
 const PostStory = styled.h5`
+  white-space: pre-wrap;  //줄바꿈 가져오기.
   line-height: 1.2;
   text-align: left;
 `;

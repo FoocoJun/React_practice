@@ -30,7 +30,7 @@ const Upload = () => {
   const userEmail = auth.currentUser?.email;
   //로그인 여부 확인
   const AlertToSignIn = () => {
-    if (!userEmail || userData.userName=='') {
+    if (!userEmail || userData.userName == "") {
       alert("로그인 후 작성 가능합니다.");
       navigate("/signin");
     }
@@ -174,11 +174,18 @@ const Upload = () => {
             ></textarea>
           </InputBox>
           <br />
-          <button type="submit">다녀왔어요</button>
+          {img && story && loc ? (
+            <button type="submit">다녀왔어요</button>
+          ) : (
+            <button type="submit" disabled>
+              다녀왔어요
+            </button>
+          )}
         </form>
       </section>
 
       <hr />
+
       <section>
         <div>
           <PreviewPost

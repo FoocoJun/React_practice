@@ -5,7 +5,7 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Stack from "react-bootstrap/Stack";
 
-const FeedLayout1 = ({card}) => {
+const FeedLayout1 = ({ card }) => {
   return (
     <>
       <Col md={6}>
@@ -32,6 +32,7 @@ const PostWhere = styled.h3`
 `;
 
 const PostStory = styled.h5`
+  white-space: pre-wrap;
   line-height: 1.2;
   text-align: left;
 `;

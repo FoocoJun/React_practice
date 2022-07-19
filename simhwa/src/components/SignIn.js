@@ -15,28 +15,38 @@ const SignIn = () => {
   const dispatch = useDispatch();
   const id_ref = React.useRef();
   const pw_ref = React.useRef();
+  const [isPasswordCorrect, setIsPasswordCorrect] = React.useState(true);
 
-  const loginFB = async (e) => {
+  const submitSignIn = async (e) => {
+    setIsPasswordCorrect(true);
+
     e.preventDefault();
-    await signInWithEmailAndPassword(
-      auth,
-      id_ref.current.value,
-      pw_ref.current.value
-    );
-    alert("환영합니다.");
-    dispatch(keepUserDataFB())
-    navigate("/");
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        id_ref.current.value,
+        pw_ref.current.value
+      );
+      alert("환영합니다.");
+      dispatch(keepUserDataFB());
+      navigate("/");
+    } catch (err) {
+      setIsPasswordCorrect(false);
+    }
   };
 
   return (
     <>
-      <form onSubmit={loginFB}>
+      <form onSubmit={submitSignIn}>
         <SignInBox>
           <InputBox>
             <label>이메일 : </label>
             <input ref={id_ref} required /> <br />
             <label>비밀번호 : </label>
             <input type="password" ref={pw_ref} required />
+            {!isPasswordCorrect && (
+              <span style={{ color: "red" }}>비밀번호가 틀렸습니다.</span>
+            )}
             <br />
           </InputBox>
         </SignInBox>

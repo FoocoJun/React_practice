@@ -12,7 +12,7 @@ import FeedLayout1 from "./FeedLayout1";
 import FeedLayout2 from "./FeedLayout2";
 
 const PreviewPost = (props) => {
-  const date = new Date() + "";
+  const date = new Date().toLocaleString();
 
   const card = {
     writer: props.user.userName,

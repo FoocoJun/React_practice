@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 //firebase
-import { auth, db } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import { storage } from "../firebase";
+import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage";
 
 import { useDispatch } from "react-redux";
 import { keepUserDataFB } from "../redux/modules/posts";
@@ -38,6 +37,10 @@ const SignUp = () => {
   //게시글 이름preview
   const [userNamePreview, setUserNamePreview] = React.useState("");
 
+  //이메일 유효성검사
+  const [isEmailFormCorrect, setIsEmailFormCorrect] = React.useState(true);
+  const [isEmailDataDuplicate, setIsEmailDataDuplicate] = React.useState(true);
+
   //프로필 사진 업로드시 미리보기
   function onFileChange(e) {
     let ProfilePic = e.target.files;
@@ -52,6 +55,9 @@ const SignUp = () => {
   }
 
   const submitSignUp = async (e) => {
+    setIsEmailFormCorrect(true);
+    setIsEmailDataDuplicate(true);
+
     e.preventDefault();
     //auth,db에 올릴 준비
     SignUpEmail = id_ref.current?.value;
@@ -71,23 +77,40 @@ const SignUp = () => {
       SignUpPic = url;
     });
 
-    //
-    const user = await createUserWithEmailAndPassword(
-      auth,
-      SignUpEmail,
-      SignUpPassword
-    );
-    console.log(user);
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        SignUpEmail,
+        SignUpPassword
+      );
+      console.log(user);
 
-    const user_data = await setDoc(doc(db, "users", SignUpEmail), {
-      user_id: SignUpEmail,
-      name: SignUpName,
-      pic: SignUpPic,
-    });
-    console.log(user_data);
-    alert("환영합니다.");
-    dispatch(keepUserDataFB())
-    navigate("/");
+      const user_data = await setDoc(doc(db, "users", SignUpEmail), {
+        user_id: SignUpEmail,
+        name: SignUpName,
+        pic: SignUpPic,
+      });
+      console.log(user_data);
+      alert("환영합니다.");
+      dispatch(keepUserDataFB());
+      navigate("/");
+    } catch (err) {
+      console.log(err.message);
+      if (err.message == "Firebase: Error (auth/invalid-email).") {
+        setIsEmailFormCorrect(false);
+      } else if (
+        err.message == "Firebase: Error (auth/email-already-in-use)."
+      ) {
+        setIsEmailDataDuplicate(false);
+      }
+      deleteObject(ImagesRef).then(()=> {
+        console.log('로그인에 실패하여 파일을 삭제했습니다.')
+      }).catch((error)=>{
+        console.log('로그인에 실패했는데 파일이 삭제가 안되네요 왠지는 몰라요.')
+      })
+
+      window.scrollTo(0, 0);
+    }
   };
 
   return (
@@ -113,7 +136,7 @@ const SignUp = () => {
             <br />
 
             <label>비밀번호 :</label>
-            <input type="password" ref={pw_ref} required />
+            <input type="password" ref={pw_ref} minLength="6" required />
 
             <br />
 
@@ -149,6 +172,17 @@ const SignUp = () => {
           )}
           <br />
         </SignUpBox>
+        {!isEmailFormCorrect && (
+          <span style={{ color: "red", fontSize: ".5rem" }}>
+            올바른 이메일 형식을 입력해주세요.
+          </span>
+        )}
+        {!isEmailDataDuplicate && (
+          <span style={{ color: "red", fontSize: ".5rem" }}>
+            이미 가입된 이메일입니다.
+          </span>
+        )}
+        <br />
         <button>회원가입</button>
       </form>
       <br />
