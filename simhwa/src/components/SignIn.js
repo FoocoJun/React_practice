@@ -5,10 +5,14 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import styled from "styled-components";
 
+import { useDispatch } from "react-redux";
+import { keepUserDataFB } from "../redux/modules/posts";
+
 import SignUpBtn from "./btns/SignUpBtn";
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const id_ref = React.useRef();
   const pw_ref = React.useRef();
 
@@ -20,6 +24,7 @@ const SignIn = () => {
       pw_ref.current.value
     );
     alert("환영합니다.");
+    dispatch(keepUserDataFB())
     navigate("/");
   };
 
@@ -37,8 +42,8 @@ const SignIn = () => {
         </SignInBox>
         <button>로그인</button>
       </form>
-      <br/>
-      <SignUpBtn/>
+      <br />
+      <SignUpBtn />
     </>
   );
 };

@@ -4,12 +4,16 @@ import styled from "styled-components";
 
 import { Container, Nav, Navbar } from "react-bootstrap";
 
+import { useSelector } from "react-redux";
+
 import HomeBtn from "./btns/HomeBtn";
 import SignUpBtn from "./btns/SignUpBtn";
 import SignInBtn from "./btns/SignInBtn";
 import LogOutBtn from "./btns/LogOutBtn";
 
-const Header = ({ isLogin }) => {
+const Header = () => {
+  const userData = useSelector((state) => state.posts.userData);
+  console.log(userData)
   return (
     <Navbar style={{ background: "#F0EBE3" }} expand="lg" sticky="top">
       <Container>
@@ -18,12 +22,12 @@ const Header = ({ isLogin }) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-end flex-grow-1 pe-3">
-            {!isLogin && (
+            {!userData.userName!='' && (
               <SignUpBtn />
               //로그인이 안되어있으면 회원가입 버튼 생성
             )}
 
-            {isLogin ? <LogOutBtn /> : <SignInBtn />}
+            {!userData.userName=='' ? <LogOutBtn /> : <SignInBtn />}
 
             <Nav.Item
               as={Link}

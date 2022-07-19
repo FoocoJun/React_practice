@@ -78,14 +78,6 @@ export default function reducer(state = initialState, action = {}) {
       const new_dict_list = [...state.dict, action.dict];
       return { dict: new_dict_list, is_loaded: true };
     }
-    case "dict/UPDATE": {
-      const new_dict_list = [...state.dict, action.dict];
-      return { dict: new_dict_list };
-    }
-    case "dict/REMOVE": {
-      const new_dict_list = [...state.dict, action.dict];
-      return { dict: new_dict_list };
-    }
 
     // do reducer stuff
     default:

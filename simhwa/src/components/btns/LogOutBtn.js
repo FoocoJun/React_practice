@@ -7,9 +7,16 @@ import { Nav } from "react-bootstrap";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 
+import { useDispatch } from "react-redux";
+import { awayUserDataFB } from "../../redux/modules/posts";
+
 const LogOutBtn = () => {
+  const dispatch = useDispatch();
+
   const logout = () => {
     signOut(auth).then(() => {});
+    dispatch(awayUserDataFB())
+    
   };
 
   return (

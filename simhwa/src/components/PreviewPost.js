@@ -15,8 +15,8 @@ const PreviewPost = (props) => {
   const date = new Date() + "";
 
   const card = {
-    writer: props.user.name,
-    writerPic: props.user.pic,
+    writer: props.user.userName,
+    writerPic: props.user.userPicture,
     date: date,
     layout: props.layout,
     img: props.img,
@@ -24,6 +24,7 @@ const PreviewPost = (props) => {
     story: props.story,
   };
 
+  // console.log(card);
   return (
     <>
       <Container

@@ -6,9 +6,12 @@ import { Route, Routes } from "react-router-dom";
 //Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 //firebase
-import { auth } from "./firebase";
+import { db, storage, auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
+import { useDispatch, useSelector } from "react-redux";
+import { loadPostFB } from "./redux/modules/posts";
 //Components
 import Header from "./components/Header";
 import Upload from "./components/Upload";
@@ -17,23 +20,15 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
 
 function App() {
-  const [isLogin, setIsLogin] = React.useState(false);
-
-  const loginCheck = (user) => {
-    if (user) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  };
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    onAuthStateChanged(auth, loginCheck);
+    dispatch(loadPostFB());
   }, []);
 
   return (
     <div className="App">
-      <Header isLogin={isLogin} setIsLogin={setIsLogin}/>
+      <Header />
 
       <section
         style={{
@@ -43,9 +38,9 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<FeedBox />} />
-          <Route path="/upload" element={<Upload isLogin={isLogin}/>} />
-          <Route path="/signup" element={<SignUp isLogin={isLogin}/>} />
-          <Route path="/signin" element={<SignIn isLogin={isLogin}/>} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </section>
     </div>

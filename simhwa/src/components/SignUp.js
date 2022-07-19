@@ -9,12 +9,16 @@ import { doc, setDoc } from "firebase/firestore";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../firebase";
 
+import { useDispatch } from "react-redux";
+import { keepUserDataFB } from "../redux/modules/posts";
+
 import Image from "react-bootstrap/Image";
 
 import SignInBtn from "./btns/SignInBtn";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   //입력값 ref
   const id_ref = React.useRef();
   const name_ref = React.useRef();
@@ -82,7 +86,7 @@ const SignUp = () => {
     });
     console.log(user_data);
     alert("환영합니다.");
-
+    dispatch(keepUserDataFB())
     navigate("/");
   };
 

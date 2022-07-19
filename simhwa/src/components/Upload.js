@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+import { useDispatch, useSelector } from "react-redux";
+import { createPostFB } from "../redux/modules/posts";
+
 //Bootstrap
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -17,12 +20,17 @@ import { db, storage, auth } from "../firebase";
 //Components
 import PreviewPost from "./PreviewPost";
 
-const Upload = ({ isLogin }) => {
+const Upload = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  //userData
+  const userData = useSelector((state) => state.posts.userData);
+  const [user, setUser] = React.useState(userData);
 
+  const userEmail = auth.currentUser?.email;
   //로그인 여부 확인
   const AlertToSignIn = () => {
-    if (!isLogin) {
+    if (!userEmail || userData.userName=='') {
       alert("로그인 후 작성 가능합니다.");
       navigate("/signin");
     }
@@ -31,13 +39,6 @@ const Upload = ({ isLogin }) => {
     AlertToSignIn();
   });
   //--------------------------------------//
-
-  //로그인 구현 전 임시 회원정보
-  const user = {
-    name: "Hajun",
-    pic: "https://scontent-gmp1-1.xx.fbcdn.net/v/t1.6435-9/33348141_2029080354019391_8693798106786955264_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=ZqAAuqEoHEcAX8oicAG&_nc_oc=AQk0omR4N2AcSjVCXiPFh6p1lMLv24xoGErgZ5IrEWh0xF_wJ_ar7O-cN6Fvv0SI5I8&tn=80rR6QnwQZXm_AhZ&_nc_ht=scontent-gmp1-1.xx&oh=00_AT9LHQO7sluY6Fhb9V4dB0PpXAHE7H92Ph29SrprZKEcbw&oe=62F7DB40",
-  };
-  const [userData, setUserData] = React.useState({});
 
   //image upload
   const [PostUploadImg, setPostUploadImg] = React.useState([]); //이미지 미리보기를 쌓아두는 State
@@ -52,22 +53,7 @@ const Upload = ({ isLogin }) => {
   const [story, setStory] = React.useState("");
   const [img, setImg] = React.useState("");
 
-  var tmp_user = {};
-  //로그인 정보 확인
-  const userEmail = auth.currentUser?.email;
-  React.useEffect(() => {
-    const GetUserInfo = async () => {
-      let userInfo = await getDoc(doc(db, "users", userEmail));
-      tmp_user = {
-        name: { ...userInfo.data() }.name,
-        pic: { ...userInfo.data() }.pic,
-      };
-      console.log(tmp_user);
-    };
-    userEmail && GetUserInfo();
-  });
   //--------------------------------------//
-
   //image file input값이 변한 경우 미리보기 생성
   function onFileChange(e) {
     let array = Array.from(e.target.files);
@@ -95,12 +81,13 @@ const Upload = ({ isLogin }) => {
   }
 
   const uploadPost = async (e) => {
-    const date = new Date();
     e.preventDefault();
+    const date = new Date() + "";
 
     var tmp_post = {
-      writer: userData.name,
-      writerPic: userData.pic,
+      writer: user.userName,
+      writerPic: user.userPicture,
+      writerEmail: user.userEmail,
       date: date,
       layout: layout,
       img: "", //아래에서 추가
@@ -112,7 +99,7 @@ const Upload = ({ isLogin }) => {
     //storage 안에 "images/" +user.name+ PostUploadImg[0].name +date 라는 이름으로
     const ImagesRef = ref(
       storage,
-      `images/${user.name}:&^@${PostUploadImg[0].name}:&^@${date}`
+      `images/${user.userName}:&^@${PostUploadImg[0].name}:&^@${date}`
     );
 
     //참조경로에 PostUploadImg[0]를 업로드. 완료되면 완료!
@@ -122,11 +109,13 @@ const Upload = ({ isLogin }) => {
     });
 
     //참조경로 파일의 URL을 받아오기.
-    getDownloadURL(ImagesRef).then((url) => {
+    await getDownloadURL(ImagesRef).then((url) => {
       tmp_post.img = url;
       //tmp_post의 img에 url추가
     });
     console.log(tmp_post);
+    dispatch(createPostFB(tmp_post));
+    navigate("/");
   };
 
   return (
@@ -190,7 +179,6 @@ const Upload = ({ isLogin }) => {
       </section>
 
       <hr />
-
       <section>
         <div>
           <PreviewPost
