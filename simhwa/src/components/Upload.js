@@ -82,7 +82,7 @@ const Upload = () => {
 
   const uploadPost = async (e) => {
     e.preventDefault();
-    const date = new Date() + "";
+    const date = new Date().toLocaleString();
 
     var tmp_post = {
       writer: user.userName,

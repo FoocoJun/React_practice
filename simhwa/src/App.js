@@ -18,6 +18,7 @@ import Upload from "./components/Upload";
 import FeedBox from "./components/FeedBox";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
+import PostDetail from "./components/PostDetail";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/detail/:postId" element={<PostDetail />} />
         </Routes>
       </section>
     </div>

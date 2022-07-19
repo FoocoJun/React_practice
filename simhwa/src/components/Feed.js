@@ -11,14 +11,34 @@ import FeedLayout0 from "./FeedLayout0";
 import FeedLayout1 from "./FeedLayout1";
 import FeedLayout2 from "./FeedLayout2";
 
+import { useNavigate } from "react-router-dom";
+
 const Feed = ({ card }) => {
-  // if (card.layout == 0) {
+  const navigate = useNavigate();
+  const postCard = React.useRef();
+  const [hover, setHover] = React.useState(false);
+
+  const toDetailPageByClickCard = () => {
+    navigate("/detail/" + card.id);
+  };
+
+  React.useEffect(() => {
+    postCard.current.addEventListener("click", toDetailPageByClickCard);
+  });
   return (
     <Container
+      ref={postCard}
+      onMouseEnter={() => {
+        setHover(true);
+      }}
+      onMouseLeave={() => {
+        setHover(false);
+      }}
       style={{
         border: "dotted #7D9D9C .3rem",
         borderRadius: "20px",
         margin: "3% auto",
+        boxShadow: hover ? "0px 0px 5px grey": "none",
       }}
     >
       <Row
@@ -55,6 +75,5 @@ const UserName = styled.h4`
   font-weight: bolder;
   margin: 0 5px;
 `;
-
 
 export default Feed;

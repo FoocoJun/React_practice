@@ -58,9 +58,9 @@ export const keepUserDataFB = () => {
 
 export const awayUserDataFB = () => {
   return async function (dispatch) {
-    let userData = {userName: "", userEmail: "", userPicture: ""};
+    let userData = { userName: "", userEmail: "", userPicture: "" };
     //userData 구성 완료
-    console.log(userData)
+    console.log(userData);
     dispatch(awayUserData(userData));
   };
 };
@@ -73,6 +73,7 @@ export const loadPostFB = () => {
       doc.data();
       postsList.push({ id: doc.id, ...doc.data() });
     });
+    postsList.sort((a, b) => (a.date > b.date? -1 : 1))
     dispatch(loadPost(postsList));
   };
 };
@@ -104,7 +105,7 @@ export default function reducer(state = initialState, action = {}) {
       };
     }
     case "post/CREATE": {
-      const newPostList = [...state.post, action.post];
+      const newPostList = [action.post, ...state.post];
       return { post: newPostList, userData: state.userData, isLoaded: true };
     }
     // do reducer stuff

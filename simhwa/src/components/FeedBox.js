@@ -7,7 +7,6 @@ import ScrollTopBtn from "./btns/ScrollTopBtn";
 
 const FeedBox = () => {
   const post = useSelector((state) => state.posts.post);
-  console.log(post);
 
   return (
     <>
