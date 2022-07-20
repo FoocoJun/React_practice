@@ -5,13 +5,10 @@ import { Route, Routes } from "react-router-dom";
 
 //Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
-//firebase
-import { db, storage, auth } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 
 import { useDispatch, useSelector } from "react-redux";
-import { keepUserDataFB, loadPostFB } from "./redux/modules/posts";
+import { keepUserDataFB } from "./redux/modules/users";
+import { loadPostFB } from "./redux/modules/posts";
 
 //Components
 import Header from "./components/Header";

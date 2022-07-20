@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Typed from "react-typed";
 
+//Components
 import LogOutBtn from "./btns/LogOutBtn";
 
 const UserDetail = () => {

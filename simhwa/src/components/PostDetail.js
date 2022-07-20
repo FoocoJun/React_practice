@@ -3,17 +3,19 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { db } from "../firebase";
-import SpinnerDefault from "./btns/SpinnerDefault";
+import { useSelector } from "react-redux";
 
 //bootstrap
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
-import { useSelector } from "react-redux";
+
+//Components
 import DeletePostBtn from "./btns/DeletePostBtn";
+import SpinnerDefault from "./btns/SpinnerDefault";
 
 const PostDetail = () => {
   const [isLoaded, setIsLoaded] = React.useState(false);
-  const userData = useSelector((state) => state.posts.userData);
+  const userData = useSelector((state) => state.users.userData);
 
   const Params = useParams();
   const [post, setPost] = React.useState({});

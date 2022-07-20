@@ -2,6 +2,7 @@ import React from "react";
 
 import { useSelector } from "react-redux";
 
+//Components
 import Feed from "./Feed";
 import ScrollTopBtn from "./btns/ScrollTopBtn";
 

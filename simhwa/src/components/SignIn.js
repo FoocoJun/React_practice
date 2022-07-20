@@ -6,8 +6,9 @@ import { auth } from "../firebase";
 import styled from "styled-components";
 
 import { useDispatch } from "react-redux";
-import { keepUserDataFB } from "../redux/modules/posts";
+import { keepUserDataFB } from "../redux/modules/users";
 
+//Components
 import SignUpBtn from "./btns/SignUpBtn";
 
 const SignIn = () => {

@@ -1,7 +1,8 @@
 import React from "react";
-
-import { Spinner } from "react-bootstrap";
 import styled from "styled-components";
+
+//bootstrap
+import { Spinner } from "react-bootstrap";
 
 const SpinnerDefault = () => {
 

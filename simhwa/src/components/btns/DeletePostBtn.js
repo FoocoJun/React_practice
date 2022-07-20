@@ -1,7 +1,5 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { deletePostFB } from "../../redux/modules/posts";

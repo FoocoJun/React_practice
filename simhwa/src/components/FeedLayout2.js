@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+//Components
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Stack from "react-bootstrap/Stack";

@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Image from "react-bootstrap/Image";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+//bootstrap
+import Image from "react-bootstrap/Image";
+
 const ToUserDetailBtn = () => {
-  const userData = useSelector((state) => state.posts.userData);
+  const userData = useSelector((state) => state.users.userData);
   return (
     <Link
       to={"/user/" + userData.userName}

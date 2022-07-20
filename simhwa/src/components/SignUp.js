@@ -14,10 +14,11 @@ import {
 } from "firebase/storage";
 
 import { useDispatch } from "react-redux";
-import { keepUserDataFB } from "../redux/modules/posts";
+import { keepUserDataFB } from "../redux/modules/users";
 
+//bootstrap
 import Image from "react-bootstrap/Image";
-
+//Components
 import SignInBtn from "./btns/SignInBtn";
 
 const SignUp = () => {

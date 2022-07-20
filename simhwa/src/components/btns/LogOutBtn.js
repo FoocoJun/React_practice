@@ -2,13 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { Nav } from "react-bootstrap";
 
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 
 import { useDispatch } from "react-redux";
-import { awayUserDataFB } from "../../redux/modules/posts";
+import { awayUserDataFB } from "../../redux/modules/users";
+
+//bootstrap
+import { Nav } from "react-bootstrap";
 
 const LogOutBtn = () => {
   const dispatch = useDispatch();

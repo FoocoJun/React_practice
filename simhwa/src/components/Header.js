@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+//bootstrap
 import { Container, Nav, Navbar } from "react-bootstrap";
-import Image from "react-bootstrap/Image";
 
 import { useSelector } from "react-redux";
 
+//Components
 import HomeBtn from "./btns/HomeBtn";
 import SignUpBtn from "./btns/SignUpBtn";
 import SignInBtn from "./btns/SignInBtn";
@@ -14,7 +15,7 @@ import LogOutBtn from "./btns/LogOutBtn";
 import ToUserDetailBtn from "./btns/ToUserDetailBtn";
 
 const Header = () => {
-  const userData = useSelector((state) => state.posts.userData);
+  const userData = useSelector((state) => state.users.userData);
   console.log(userData);
   return (
     <Navbar style={{ background: "#F0EBE3" }} expand="lg" sticky="top">
