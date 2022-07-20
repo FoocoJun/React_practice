@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 //Font-Awesome
-import { faPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPlane, faPlaneSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //firebase
@@ -176,10 +176,14 @@ const Upload = () => {
             </BUTTON>
           ) : (
             <BUTTON type="submit" disabled>
-              <div className="PlaneBox">
-              <div className="PlanePush"></div>
+              <div className="PlaneBoxDis">
+                <div className="PlanePush"></div>
                 <div className="Plane">
-                  <FontAwesomeIcon icon={faPlane} size={"xl"} color={"white"} />
+                  <FontAwesomeIcon
+                    icon={faPlaneSlash}
+                    size={"xl"}
+                    color={"grey"}
+                  />
                 </div>
               </div>
             </BUTTON>
@@ -198,7 +202,6 @@ const Upload = () => {
               2
             </Button>
           </ButtonGroup>
-          
         </form>
       </section>
 
@@ -243,10 +246,12 @@ const BUTTON = styled.button`
   width: 128px;
   .PlaneBox {
     display: flex;
-    &:hover {
-      .PlanePush {
-        animation: ${MovingAirPlane} 2s linear;
-        animation-fill-mode: forwards;
+     {
+      &:hover {
+        .PlanePush {
+          animation: ${MovingAirPlane} 2s linear;
+          animation-fill-mode: forwards;
+        }
       }
     }
   }
