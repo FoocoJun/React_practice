@@ -50,7 +50,8 @@ const SignIn = () => {
             <br />
           </InputBox>
         </SignInBox>
-        <button>로그인</button>
+        <br/>
+        <SignInButton>로그인</SignInButton>
       </form>
       <br />
       <SignUpBtn />
@@ -78,6 +79,15 @@ const InputBox = styled.div`
     border-color: #7d9d9c;
     background-color: #e4dccf;
   }
+`;
+
+const SignInButton = styled.button`
+  border-style: dotted;
+  border-width: 3px;
+  border-radius: 20px;
+  border-color: #7d9d9c;
+  background-color: #7d9d9c;
+  color: white;
 `;
 
 export default SignIn;

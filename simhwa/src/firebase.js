@@ -25,7 +25,7 @@ const firebaseConfig = {
   storageBucket: "simhwa-babee.appspot.com",
   messagingSenderId: "871896845705",
   appId: "1:871896845705:web:7d977ce38f56a15c732558",
-  measurementId: "G-H4RDHVPGWF"
+  measurementId: "G-H4RDHVPGWF",
 };
 
 // Initialize Firebase

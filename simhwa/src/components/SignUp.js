@@ -192,7 +192,7 @@ const SignUp = () => {
           </span>
         )}
         <br />
-        <button>회원가입</button>
+        <SignUpButton>회원가입</SignUpButton>
       </form>
       <br />
       <SignInBtn />
@@ -243,6 +243,15 @@ const UserName = styled.h4`
   display: inline;
   font-weight: bolder;
   margin: 0 5px;
+`;
+
+const SignUpButton = styled.button`
+  border-style: dotted;
+  border-width: 3px;
+  border-radius: 20px;
+  border-color: #7d9d9c;
+  background-color: #7d9d9c;
+  color: white;
 `;
 
 export default SignUp;

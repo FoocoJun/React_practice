@@ -67,7 +67,10 @@ const PostDetail = () => {
             }}
           >
             <small> {post.date}</small>
-            {userData.userEmail == post.writerEmail || userData.userEmail == 'songhajun648@gmail.com' ? <DeletePostBtn /> : null}
+            {userData.userEmail == post.writerEmail ||
+            userData.userEmail == "songhajun648@gmail.com" ? (
+              <DeletePostBtn />
+            ) : null}
           </div>
         </div>
         {isLoaded ? (

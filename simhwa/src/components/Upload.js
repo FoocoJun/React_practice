@@ -181,6 +181,7 @@ const Upload = () => {
           {img && story && loc ? (
             <BUTTON type="submit">
               <div className="PlaneBox">
+                <div className="PlanePush"></div>
                 <div className="Plane">
                   <FontAwesomeIcon icon={faPlane} size={"xl"} color={"white"} />
                 </div>
@@ -189,6 +190,7 @@ const Upload = () => {
           ) : (
             <BUTTON type="submit" disabled>
               <div className="PlaneBox">
+              <div className="PlanePush"></div>
                 <div className="Plane">
                   <FontAwesomeIcon icon={faPlane} size={"xl"} color={"white"} />
                 </div>
@@ -217,13 +219,14 @@ const Upload = () => {
 
 const MovingAirPlane = keyframes`
 0% {
-  right:40px;
-  width:114px;
+  width:0px;
 }
+50% {
+  width: 80px;
+}
+
 100% {
-  right:-40px;
-  width:114px;
-  
+  width:100px;
 }
 `;
 
@@ -237,12 +240,10 @@ const BUTTON = styled.button`
   height: 32px;
   width: 128px;
   .PlaneBox {
-    .Plane {
-      position: relative;
-      width:114px;
-      right:40px;
-      &:hover {
-        animation: ${MovingAirPlane} 2s;
+    display: flex;
+    &:hover {
+      .PlanePush {
+        animation: ${MovingAirPlane} 2s linear;
         animation-fill-mode: forwards;
       }
     }

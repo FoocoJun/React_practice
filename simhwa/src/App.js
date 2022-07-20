@@ -11,7 +11,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 
 import { useDispatch, useSelector } from "react-redux";
-import { loadPostFB } from "./redux/modules/posts";
+import { keepUserDataFB, loadPostFB } from "./redux/modules/posts";
+
 //Components
 import Header from "./components/Header";
 import Upload from "./components/Upload";
@@ -25,6 +26,7 @@ function App() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
+    dispatch(keepUserDataFB());
     dispatch(loadPostFB());
   }, []);
 

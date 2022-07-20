@@ -2,22 +2,35 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { deletePostFB } from "../../redux/modules/posts";
 
 const DeletePostBtn = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const Params = useParams();
+
   const DeletePost = async (e) => {
     e.preventDefault();
-    const Params = useParams();
-    const docRef = doc(db, "posts", Params.postId);
-    await deleteDoc(docRef);
+    dispatch(deletePostFB(Params))
     navigate("/");
   };
 
   return (
-    <button onClick={DeletePost} style={{ margin: "0 0 0 20px" }} disabled>
+    <DeleteButton onClick={DeletePost} style={{ margin: "0 0 0 20px" }}>
       삭제하기
-    </button>
+    </DeleteButton>
   );
 };
+
+const DeleteButton = styled.button`
+  border-style: dotted;
+  border-width: 3px;
+  border-radius: 20px;
+  border-color: #7d9d9c;
+  background-color: #7d9d9c;
+  color: white;
+`;
 
 export default DeletePostBtn;
