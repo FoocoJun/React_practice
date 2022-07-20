@@ -28,7 +28,7 @@ const Upload = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //userData
-  const userData = useSelector((state) => state.posts.userData);
+  const userData = useSelector((state) => state.users.userData);
   const [user, setUser] = React.useState(userData);
 
   const userEmail = auth.currentUser?.email;
@@ -132,19 +132,6 @@ const Upload = () => {
     >
       <section>
         <form onSubmit={uploadPost}>
-          <h3 style={{ fontWeight: "bolder", color: "grey" }}>Layout</h3>
-          <ButtonGroup aria-label="Basic example">
-            <Button variant="secondary" onClick={() => setLayout(0)}>
-              0
-            </Button>
-            <Button variant="secondary" onClick={() => setLayout(1)}>
-              1
-            </Button>
-            <Button variant="secondary" onClick={() => setLayout(2)}>
-              2
-            </Button>
-          </ButtonGroup>
-          <br />
           <br />
           <InputBox>
             <input
@@ -197,6 +184,21 @@ const Upload = () => {
               </div>
             </BUTTON>
           )}
+          <br />
+          <br />
+          <h3 style={{ fontWeight: "bolder", color: "grey" }}>Layout</h3>
+          <ButtonGroup aria-label="Basic example">
+            <Button variant="secondary" onClick={() => setLayout(0)}>
+              0
+            </Button>
+            <Button variant="secondary" onClick={() => setLayout(1)}>
+              1
+            </Button>
+            <Button variant="secondary" onClick={() => setLayout(2)}>
+              2
+            </Button>
+          </ButtonGroup>
+          
         </form>
       </section>
 
