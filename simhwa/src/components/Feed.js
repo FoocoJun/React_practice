@@ -10,24 +10,21 @@ import Image from "react-bootstrap/Image";
 import FeedLayout0 from "./FeedLayout0";
 import FeedLayout1 from "./FeedLayout1";
 import FeedLayout2 from "./FeedLayout2";
+import SpinnerDefault from "./btns/SpinnerDefault";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Feed = ({ card }) => {
   const navigate = useNavigate();
-  const postCard = React.useRef();
   const [hover, setHover] = React.useState(false);
 
   const toDetailPageByClickCard = () => {
     navigate("/detail/" + card.id, { state: { card: card } });
   };
 
-  React.useEffect(() => {
-    postCard.current.addEventListener("click", toDetailPageByClickCard);
-  });
+  React.useEffect(() => {}, []);
   return (
     <Container
-      ref={postCard}
       onMouseEnter={() => {
         setHover(true);
       }}
@@ -41,18 +38,48 @@ const Feed = ({ card }) => {
         boxShadow: hover ? "0px 0px 5px grey" : "none",
       }}
     >
+      {/* 유저 정보와 게시글 작성 시간 */}
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          margin: "1%",
+        }}
+      >
+        <Link
+          to={"/user/" + card.writer}
+          style={{
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+            color: "black",
+            width: "fit-content",
+          }}
+        >
+          <Image src={card.writerPic} roundedCircle width={50} height={50} />
+          <UserName>{card.writer}</UserName>
+        </Link>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            margin: "1%",
+            width: "fit-content",
+          }}
+        >
+          <small> {card.date}</small>
+        </div>
+      </div>
+
       <Row
+        onClick={toDetailPageByClickCard}
         className="justify-content-md-center"
         style={{
           margin: "1.5% auto 3%",
         }}
       >
-        {/* 유저 정보와 게시글 작성 시간 */}
-        <div style={{ display: "flex", alignItems: "center", margin: "1%" }}>
-          <Image src={card.writerPic} roundedCircle width={50} height={50} />
-          <UserName>{card.writer}</UserName>
-          <small> {card.date}</small>
-        </div>
         {
           //layout 0인 경우 사진 좌측 글 우측
           //layout 1인 경우 사진 우측 글 좌측

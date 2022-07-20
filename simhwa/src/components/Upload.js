@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,10 @@ import { createPostFB } from "../redux/modules/posts";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+
+//Font-Awesome
+import { faPlane } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //firebase
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -175,11 +179,21 @@ const Upload = () => {
           </InputBox>
           <br />
           {img && story && loc ? (
-            <button type="submit">다녀왔어요</button>
+            <BUTTON type="submit">
+              <div className="PlaneBox">
+                <div className="Plane">
+                  <FontAwesomeIcon icon={faPlane} size={"xl"} color={"white"} />
+                </div>
+              </div>
+            </BUTTON>
           ) : (
-            <button type="submit" disabled>
-              다녀왔어요
-            </button>
+            <BUTTON type="submit" disabled>
+              <div className="PlaneBox">
+                <div className="Plane">
+                  <FontAwesomeIcon icon={faPlane} size={"xl"} color={"white"} />
+                </div>
+              </div>
+            </BUTTON>
           )}
         </form>
       </section>
@@ -200,6 +214,40 @@ const Upload = () => {
     </Container>
   );
 };
+
+const MovingAirPlane = keyframes`
+0% {
+  right:40px;
+  width:114px;
+}
+100% {
+  right:-40px;
+  width:114px;
+  
+}
+`;
+
+const BUTTON = styled.button`
+  border: solid;
+  border-width: 1px;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #7d9d9c;
+
+  height: 32px;
+  width: 128px;
+  .PlaneBox {
+    .Plane {
+      position: relative;
+      width:114px;
+      right:40px;
+      &:hover {
+        animation: ${MovingAirPlane} 2s;
+        animation-fill-mode: forwards;
+      }
+    }
+  }
+`;
 
 const InputBox = styled.div`
   input {

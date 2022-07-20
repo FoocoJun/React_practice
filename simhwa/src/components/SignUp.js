@@ -6,7 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { auth, db, storage } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage";
+import {
+  ref,
+  getDownloadURL,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
 
 import { useDispatch } from "react-redux";
 import { keepUserDataFB } from "../redux/modules/posts";
@@ -103,11 +108,15 @@ const SignUp = () => {
       ) {
         setIsEmailDataDuplicate(false);
       }
-      deleteObject(ImagesRef).then(()=> {
-        console.log('로그인에 실패하여 파일을 삭제했습니다.')
-      }).catch((error)=>{
-        console.log('로그인에 실패했는데 파일이 삭제가 안되네요 왠지는 몰라요.')
-      })
+      deleteObject(ImagesRef)
+        .then(() => {
+          console.log("로그인에 실패하여 파일을 삭제했습니다.");
+        })
+        .catch(() => {
+          console.log(
+            "로그인에 실패했는데 파일이 삭제가 안되네요 왠지는 몰라요."
+          );
+        });
 
       window.scrollTo(0, 0);
     }
