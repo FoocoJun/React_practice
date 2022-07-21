@@ -113,6 +113,8 @@ const Upload = () => {
       img: "", //아래에서 추가
       loc: inputLoc.current.value,
       story: inputStory.current.value,
+      comments: [],
+      likes: [],
     };
 
     //참조경로를 만들어주는데

@@ -13,6 +13,8 @@ import FeedLayout2 from "./FeedLayout2";
 import SpinnerDefault from "./btns/SpinnerDefault";
 
 import { Link, useNavigate } from "react-router-dom";
+import AddComment from "./AddComment";
+import CommentBox from "./CommentBox";
 
 const Feed = ({ card }) => {
   const navigate = useNavigate();
@@ -93,6 +95,11 @@ const Feed = ({ card }) => {
           )
         }
       </Row>
+      {card?.comments && card.comments.length>0 ? (
+        <CommentBox comments={card.comments} />
+      ) : null}
+
+      <AddComment postId={card.id} />
     </Container>
   );
 };

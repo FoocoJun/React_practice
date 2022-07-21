@@ -13,6 +13,8 @@ const ToUserDetailBtn = () => {
       to={"/user/" + userData.userName}
       style={{
         textDecoration: "none",
+        position: "relative",
+        left: "15px",
       }}
     >
       <UserDetailBtn>

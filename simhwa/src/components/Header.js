@@ -21,14 +21,14 @@ const Header = () => {
     <Navbar style={{ background: "#F0EBE3" }} expand="lg" sticky="top">
       <Container>
         <HomeBtn />
-        <div>
+        <div >
           {userData.userName && (
             <ToUserDetailBtn />
           )}
         </div>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="justify-content-end flex-grow-1 pe-3">
+          <Nav className="justify-content-end flex-grow-1">
             {!userData.userName != "" && (
               <SignUpBtn />
               //로그인이 안되어있으면 회원가입 버튼 생성

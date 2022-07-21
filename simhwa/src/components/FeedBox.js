@@ -12,7 +12,9 @@ const FeedBox = () => {
   return (
     <>
       {post.map((card, idx) => {
-        return <Feed key={"Feed" + idx} card={card} />;
+        return (
+            <Feed key={"Feed" + idx} card={card} />
+        );
       })}
 
       <ScrollTopBtn />

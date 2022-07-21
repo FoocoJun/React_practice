@@ -12,6 +12,8 @@ import Image from "react-bootstrap/Image";
 //Components
 import DeletePostBtn from "./btns/DeletePostBtn";
 import SpinnerDefault from "./btns/SpinnerDefault";
+import AddComment from "./AddComment";
+import CommentBox from "./CommentBox";
 
 const PostDetail = () => {
   const [isLoaded, setIsLoaded] = React.useState(false);
@@ -88,6 +90,11 @@ const PostDetail = () => {
         )}
         <PostWhere>{post.loc}</PostWhere>
         <PostStory>{post.story}</PostStory>
+
+        {isLoaded && post?.comments && post.comments.length > 0 ? (
+          <CommentBox comments={post.comments} />
+        ) : null}
+        <AddComment postId={Params.postId} />
       </Container>
     </>
   );

@@ -30,7 +30,7 @@ const SignIn = () => {
       );
       alert("환영합니다.");
       dispatch(keepUserDataFB());
-      navigate("/");
+      navigate(-1);
     } catch (err) {
       if (err.message.includes("auth/wrong-password")) {
         setIsPasswordCorrect(false);
