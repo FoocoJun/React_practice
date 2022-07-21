@@ -32,7 +32,12 @@ const SignIn = () => {
       dispatch(keepUserDataFB());
       navigate("/");
     } catch (err) {
-      setIsPasswordCorrect(false);
+      if (err.message.includes("auth/wrong-password")) {
+        setIsPasswordCorrect(false);
+      }
+      else {
+        alert(err.message.substring(10))
+      }
     }
   };
 
@@ -42,7 +47,7 @@ const SignIn = () => {
         <SignInBox>
           <InputBox>
             <label>이메일 : </label>
-            <input ref={id_ref} required /> <br />
+            <input ref={id_ref} type="email" required /> <br />
             <label>비밀번호 : </label>
             <input type="password" ref={pw_ref} required />
             {!isPasswordCorrect && (
@@ -51,8 +56,9 @@ const SignIn = () => {
             <br />
           </InputBox>
         </SignInBox>
-        <br/>
-        <SignInButton>로그인</SignInButton>
+        <br />
+          <SignInButton>로그인</SignInButton>
+        
       </form>
       <br />
       <SignUpBtn />

@@ -28,6 +28,7 @@ const SignUp = () => {
   const id_ref = React.useRef();
   const name_ref = React.useRef();
   const pw_ref = React.useRef();
+  const img_ref = React.useRef();
 
   //Email과 Password를 가지고 auth에 생성한다.
   var SignUpEmail = "";
@@ -49,6 +50,19 @@ const SignUp = () => {
 
   //프로필 사진 업로드시 미리보기
   function onFileChange(e) {
+    img_ref.current.innerText = null;
+    setSignUpProfilePicture(null);
+    setSignUpProfilePicturePreview(null);
+
+    const correctForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+    if (e.target.files[0].size > 3 * 1024 * 1024) {
+      img_ref.current.innerText = "파일 사이즈는 3MB까지만 가능합니다.";
+      return;
+    } else if (!e.target.files[0].name.match(correctForm)) {
+      img_ref.current.innerText = "이미지 파일만 업로드 가능합니다.";
+      return;
+    }
+
     let ProfilePic = e.target.files;
     setSignUpProfilePicture([...ProfilePic]);
 
@@ -79,7 +93,7 @@ const SignUp = () => {
       console.log("Uploaded file!");
     });
 
-    getDownloadURL(ImagesRef).then((url) => {
+    await getDownloadURL(ImagesRef).then((url) => {
       SignUpPic = url;
     });
 
@@ -89,12 +103,14 @@ const SignUp = () => {
         SignUpEmail,
         SignUpPassword
       );
-      console.log(user);
+      console.log(user); //회원가입은 성공 83번째줄이 await이 없어서 종료가 안되어 94번째 데이터 저장은 실패 ->에러 - >catch 사진 삭제
 
       const user_data = await setDoc(doc(db, "users", SignUpEmail), {
         user_id: SignUpEmail,
         name: SignUpName,
-        pic: SignUpPic,
+        pic: SignUpPic
+          ? SignUpPic
+          : "https://play-lh.googleusercontent.com/38AGKCqmbjZ9OuWx4YjssAz3Y0DTWbiM5HB0ove1pNBq_o9mtWfGszjZNxZdwt_vgHo",
       });
       console.log(user_data);
       alert("환영합니다.");
@@ -108,15 +124,13 @@ const SignUp = () => {
         err.message == "Firebase: Error (auth/email-already-in-use)."
       ) {
         setIsEmailDataDuplicate(false);
+      } else {
+        alert(err.message.substring(10));
       }
       deleteObject(ImagesRef)
-        .then(() => {
-          console.log("로그인에 실패하여 파일을 삭제했습니다.");
-        })
-        .catch(() => {
-          console.log(
-            "로그인에 실패했는데 파일이 삭제가 안되네요 왠지는 몰라요."
-          );
+        .then(() => {})
+        .catch((err) => {
+          alert(err.message.substring(10));
         });
 
       window.scrollTo(0, 0);
@@ -130,6 +144,16 @@ const SignUp = () => {
           <InputBox>
             <label>이메일 :</label>
             <input type="email" ref={id_ref} required />
+            {!isEmailFormCorrect && (
+              <span style={{ color: "red", fontSize: ".5rem" }}>
+                올바른 이메일 형식을 입력해주세요.
+              </span>
+            )}
+            {!isEmailDataDuplicate && (
+              <span style={{ color: "red", fontSize: ".5rem" }}>
+                이미 가입된 이메일입니다.
+              </span>
+            )}
 
             <br />
 
@@ -157,6 +181,7 @@ const SignUp = () => {
               onChange={onFileChange}
               required
             />
+            <span style={{ color: "red", fontSize: ".5rem" }} ref={img_ref} />
           </InputBox>
 
           {signUpProfilePicturePreview && (
@@ -182,18 +207,14 @@ const SignUp = () => {
           )}
           <br />
         </SignUpBox>
-        {!isEmailFormCorrect && (
-          <span style={{ color: "red", fontSize: ".5rem" }}>
-            올바른 이메일 형식을 입력해주세요.
-          </span>
-        )}
-        {!isEmailDataDuplicate && (
-          <span style={{ color: "red", fontSize: ".5rem" }}>
-            이미 가입된 이메일입니다.
-          </span>
-        )}
         <br />
-        <SignUpButton>회원가입</SignUpButton>
+        {signUpProfilePicture && userNamePreview ? (
+          <SignUpButton>회원가입</SignUpButton>
+        ) : (
+          <SignUpButton style={{ color: "grey" }} disabled>
+            회원가입
+          </SignUpButton>
+        )}
       </form>
       <br />
       <SignInBtn />

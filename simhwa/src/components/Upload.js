@@ -50,8 +50,9 @@ const Upload = () => {
   //layout
   const [layout, setLayout] = React.useState(0);
   //input ref
-  const inputLoc = React.useRef("null");
-  const inputStory = React.useRef("null");
+  const inputLoc = React.useRef(null);
+  const inputStory = React.useRef(null);
+  const inputImage = React.useRef(null);
   //preview state
   const [loc, setLoc] = React.useState("");
   const [story, setStory] = React.useState("");
@@ -60,6 +61,21 @@ const Upload = () => {
   //--------------------------------------//
   //image file input값이 변한 경우 미리보기 생성
   function onFileChange(e) {
+    inputImage.current.innerText=null
+    setPostUploadImg(null);
+    setImg(null);
+
+    const correctForm = /(.*?)\.(jpg|jpeg|png|gif|bmp)$/;
+    if (e.target.files[0].size > 3 * 1024 * 1024) {
+      console.log(inputImage);
+      inputImage.current.innerText = "파일 사이즈는 3MB까지만 가능합니다.";
+      return;
+    } else if (!e.target.files[0].name.match(correctForm)) {
+      inputImage.current.innerText = "이미지 파일만 업로드 가능합니다.";
+      console.log(e);
+      return;
+    }
+
     let array = Array.from(e.target.files);
     let copyPreview = [...array];
     setPostUploadImg(copyPreview);
@@ -148,11 +164,15 @@ const Upload = () => {
           <InputBox>
             <input
               type={"file"}
+              ref={inputImage}
               accept={"image/*"}
               onChange={onFileChange}
               required
             />
           </InputBox>
+
+          <span style={{color:"red"}} ref={inputImage}></span>
+
           <br />
           <InputBox>
             <textarea
@@ -246,12 +266,11 @@ const BUTTON = styled.button`
   width: 128px;
   .PlaneBox {
     display: flex;
-     {
-      &:hover {
-        .PlanePush {
-          animation: ${MovingAirPlane} 2s linear;
-          animation-fill-mode: forwards;
-        }
+
+    &:hover {
+      .PlanePush {
+        animation: ${MovingAirPlane} 2s linear;
+        animation-fill-mode: forwards;
       }
     }
   }
